@@ -20,6 +20,7 @@ h1{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .screen{
+    background-color:white;
     width: 600px;
     height: 600px;
     background-color: white;

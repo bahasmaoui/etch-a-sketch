@@ -28,7 +28,7 @@ h1{
     display: flex;
     flex-wrap: wrap;
     gap:0px;
-    border: 1px solid black;
+    border: 1px solid red;
     box-shadow: 12px 12px 12px rgba(0,0,0,0.1);
     
 }

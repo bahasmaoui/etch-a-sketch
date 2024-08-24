@@ -1,84 +1,95 @@
-let knob = document.querySelector(".knob");
-let circle = document.getElementById("circle2");
-let pointer = document.querySelector(".pointer");
-let text = document.querySelector(".text");
-let screen = document.querySelector('.screen');
+//Variables//
+const screen = document.querySelector('.screen');
+const setSizeButton = document.querySelector('#set-size');
+const eraseButton = document.querySelector('#erase');
+const randomColorButton = document.querySelector('#rainbow-mode');
+const colorSelector = document.querySelector('#color-selector');
+let numberOfSquares = 16;
+let colorMode = 'rainbow';
 
-let isRotating = false;
 
-document.addEventListener("mousedown", (e) => {
-  if (e.target.closest(".knob")) {
-    isRotating = true;
-  }
-});
 
-const rotateKnob = (e) => {
-  if (isRotating) {
-    let knobX = knob.getBoundingClientRect().left + knob.clientWidth / 2;
-    let knobY = knob.getBoundingClientRect().top + knob.clientHeight / 2;
+//functions//
 
-    let deltaX = e.clientX - knobX;
-    let deltaY = e.clientY - knobY;
+function getSelectedColor() {
+    const { r, g, b } = hexToRgb(colorSelector.value);
+    return 'rgba(' + r + ',' + g + ',' + b + ',';
+}
+function hexToRgb(hex) {
+    hex = hex.replace(/^#/, '');
 
-    let angleRad = Math.atan2(deltaY, deltaX);
-    let angleDeg = (angleRad * 180) / Math.PI;
+    // Parse the r, g, b values
+    const bigint = parseInt(hex, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
 
-    let rotationAngle = (angleDeg - 135 + 360) % 360;
+    return { r, g, b };
+}
+function getOpacityFromRGBA(rgba) {
+    const match = rgba.match(/rgba?\((\d+), (\d+), (\d+), ([\d.]+)\)/);
+    return match ? parseFloat(match[4]) : null;
+}
+function getRandomColor() {
+    const red = Math.random() * 255;
+    const green = Math.random() * 255;
+    const blue = Math.random() * 255;
+    return 'rgba(' + red + ',' + green + ',' + blue + ',';
 
-    if (rotationAngle <= 270) {
-      pointer.style.transform = `rotate(${rotationAngle - 45}deg)`;
-
-      let progressPercent = rotationAngle / 270;
-
-      circle.style.strokeDashoffset = `${440 - 330 * progressPercent}`;
-
-      let numberOfSquares = Math.round(progressPercent * 100);
-      text.innerHTML = `${numberOfSquares}`;
-
-     
-      screen.innerHTML = '';
-        
-      for (let i = 0; i < numberOfSquares * numberOfSquares; i++) {
+}
+function setScreen(numberOfSquares, colorMode) {
+    screen.innerHTML = ''
+    for (let i = 0; i < numberOfSquares * numberOfSquares; i++) {
         const div = document.createElement('div');
-        const squareSize = (600 - numberOfSquares * 2) / numberOfSquares;
-        div.style.height = `${squareSize}px`;
-        div.style.width = `${squareSize}px`;
-        let red = Math.floor(Math.random() *255);
-        let blue = Math.floor(Math.random() *255);
-        let green = Math.floor(Math.random() *255);
-        let color = 'rgb('+red+','+blue+','+green+')';
-        div.style.backgroundColor = color;          
-        
-        div.style.opacity = '0';
-        div.className = "square";
+        div.style.border = '1px solid rgba(0,0,0,0)';
+        let squareSize = (600 - numberOfSquares * 2) / numberOfSquares + 'px';
+        div.style.width = squareSize;
+        div.style.height = div.style.width;
+        let color;
+        if (colorMode == 'rainbow') {
+            color = getRandomColor();
+        }
+        else if (colorMode === 'singleColor'){
+            color = getSelectedColor();
+        }
+        div.style.backgroundColor = color + '0)';
+        div.className = 'square';
         div.addEventListener('mouseenter', () => {
-            opacity = Number(div.style.opacity) ;
-            opacity += 0.3;
-            div.style.opacity = opacity.toString();
-            
+            currentColor = div.style.backgroundColor;
+            let currentOpacity = getOpacityFromRGBA(currentColor);
+            if (currentOpacity == null) {
+                currentOpacity = 1;
+            }
+            else {
+                currentOpacity += 0.2;
+            }
+            let newColor = color + currentOpacity + ')';
+            div.style.backgroundColor = newColor;
 
-        })
-        screen.append(div);
-      }
+        });
+        screen.append(div)
     }
-  }
-};
+}
+setScreen(numberOfSquares, colorMode);
 
-document.addEventListener("mousemove", rotateKnob);
+randomColorButton.addEventListener('click', () => {setScreen(numberOfSquares, 'rainbow')});
+colorSelector.addEventListener('change', () => {
+    setScreen(numberOfSquares,'singleColor');
+    colorSelector.style.backgroundColor = colorSelector.value;
 
-document.addEventListener("mouseup", () => {
-  isRotating = false;
+
 });
 
 
-const button2 = document.querySelector("#erase");
 
-button2.addEventListener('click', () => {
-  const squares = document.querySelectorAll('.square');
-  let numberOfSquares = Number(text.innerHTML);
-  
-  squares.forEach(square => {
-    square.style.opacity = '0' ;
-  });
-});
+eraseButton.addEventListener('click', () => {
+    squares = document.querySelectorAll('.square');
+    squares.forEach(element => element.style.backgroundColor = 'rgba(255,0,0,0)');
+})
+
+setSizeButton.addEventListener('click', () => {
+    numberOfSquares = prompt('set number of squares per side');
+    setScreen(numberOfSquares);
+})
+
 

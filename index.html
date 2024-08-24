@@ -8,72 +8,15 @@
 </head>
 <body>
     <h1>Etch A Sketch !</h1>
-    <div class="game">
-        <div class="screen">
-
-        </div>
+    <div class="main">
+        <div class="screen"></div>
         <div class="buttons">
-            <div class="center">
-                <div class="slider">
-                    <div class="knob">
-                      <div class="rotator">
-                        <div class="text">0</div>
-                      </div>
-                      <div class="pointer">
-                        
-                      </div>
-                    </div>
-                      <circle class="progress-circle" cx="150" cy="150" r="140"></circle>
-                      <circle
-                        id="circle2"
-                        class="progress-circle"
-                        cx="150"
-                        cy="150"
-                        r="140"
-                        style="
-                          stroke: url(#gradient);
-                          stroke-width: 16px;
-                          stroke-linecap: round;
-                        "
-                      ></circle>
-                      
-                  </div>
-            </div>
-            <div class="center" id="erase">
-                <div class="slider">
-                    <div class="knob">
-                      <div class="rotator">
-                        <div class="text">clear</div>
-                      </div>
-                      <div class="pointer">
-                        
-                      </div>
-                    </div>
-                      <circle class="progress-circle" cx="150" cy="150" r="140"></circle>
-                      <circle
-                        id="circle2"
-                        class="progress-circle"
-                        cx="150"
-                        cy="150"
-                        r="140"
-                        style="
-                          stroke: url(#gradient);
-                          stroke-width: 16px;
-                          stroke-linecap: round;
-                        "
-                      ></circle>
-                      <defs>
-                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" style="stop-color: red" />
-                          <stop offset="50%" style="stop-color: orange" />
-                          <stop offset="100%" style="stop-color: rgb(29, 209, 94)" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                  </div>
-            </div>
-        </div>
-    </div>
+            <div class="button" id="set-size">size</div>
+            <input type="color" id="color-selector">
+            <div class="button" id="rainbow-mode">rainbow</div>
+            <div class="button" id="erase">erase</div> 
+            
+          </div>
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,19 +1,17 @@
 
-
-.game{
-
-    width: 40%;
-    height: 700px;
-    margin: auto;
+body{
+    background-color: #F0F8FF;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.main{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding-top: 60px;
-    border: 0;
-    gap: 16px;
-    padding-bottom: 30px;
-    margin-top: 10px;
+    align-items: center;
     
+    width: 600px;
+    margin: auto;
+    gap: 32px;
+    padding: 16px;
 }
 h1{
     text-align: center;
@@ -24,27 +22,40 @@ h1{
     height: 600px;
     background-color: white;
     margin: auto;
-    display: flex;
-    flex-wrap: wrap;
     gap:0px;
-    border: 1px solid black;
+    box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     
 }
+
 .buttons{
-    justify-self: flex-end;
     display: flex;
-    justify-content: space-between;
-    padding: 50px 50px;
+    justify-content: space-around;
+    width: 100%;
+}
+.button{
+    background-color: white;
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    display: flex;
     align-items: center;
+    justify-content: center;
+}
+#color-selector{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    appearance: none;
+    background-color: black;
+    
+}
+.button:hover{
+    box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
 }
 
-.right{
-    width: 110px;
-    height: 110px;
-    border: solid white;
-    border-radius: 100px;
-    background-color: white;
-}
 .square {
     border: 1px solid rgba(0, 0, 0, 25%);
 
@@ -55,91 +66,4 @@ h1{
     display: flex;
     align-items: center;
     justify-content: center;
-}
-.slider {
-    width: 150px;
-    height: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    user-select: none;
-}
-.knob {
-    width: 110px;
-    height: 110px;
-    background: rgb(222, 222, 222);
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.knob .rotator {
-    width: 90px;
-    height: 90px;
-    background: rgb(235, 235, 235);
-    border-radius: 50%;
-    box-shadow: 1.5px 1.5px 1.5px rgba(0, 0, 0, 0.2), inset 0.5px 1px 0.5px white,
-                1px -0.5px 0.5px rgba(0, 0, 0, 0.2), -0.5px 0px 0.5px rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Center the text inside the rotator */
-    position: relative;
-    z-index: 1;
-}
-.knob .text {
-    width: auto;
-    height: auto;
-    font-family: poppins;
-    font-size: 24px; /* Increase the font size */
-    font-weight: 600;
-    color: rgb(57, 55, 53);
-    text-align: center; /* Center the text */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute; /* Position the text absolutely within the knob */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Center the text horizontally and vertically */
-}
-.pointer {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    top: calc(50% - 5px);
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    transform-origin: 55px 5px;
-    transform: rotate(-45deg);
-}
-.pointer span {
-    font-size: 30px;
-    transform: rotate(180deg) translateX(7.5px);
-}
-circle {
-    fill: none;
-}
-circle:nth-child(1) {
-    stroke: rgba(0, 0, 0, 0.7);
-    stroke-width: 7.5px;
-    stroke-dasharray: 330;
-    transform-origin: center;
-    transform: rotate(135deg);
-    stroke-linecap: round;
-}
-circle:nth-child(2) {
-    stroke: rgb(2, 117, 232);
-    stroke-width: 7.5px;
-    stroke-dasharray: 440;
-    stroke-dashoffset: calc(440 - (330 * 0) / 100);
-    transform-origin: center;
-    transform: rotate(135deg);
-    stroke-linecap: round;
 }
